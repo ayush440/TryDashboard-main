@@ -18,26 +18,29 @@ const createChart = () => {
     data: {
       labels: ['Strategy 1', 'Strategy 2', 'Strategy 3', 'Strategy 4'],
       datasets: [{
-        data: [22.5, 22.5, 38.8, 38.8],
+        data: [55, 25, 10, 5],
         backgroundColor: (context) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
           if (!chartArea) {
             return null;
           }
+
+          // Create a gradient for Strategy 1 (#FF0000 to white)
           const gradientRed = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-          gradientRed.addColorStop(0, '#ef4444');
+          gradientRed.addColorStop(0, '#FF0000');
           gradientRed.addColorStop(1, '#ffffff');
 
-          const gradientLightRed = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-          gradientLightRed.addColorStop(0, '#FF0000');
-          gradientLightRed.addColorStop(1, '#ffffff');
+          // Create a gradient for Strategy 2 (#5D5FEF to white)
+          const gradientBlue = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+          gradientBlue.addColorStop(0, '#5D5FEF');
+          gradientBlue.addColorStop(1, '#ffffff');
 
           return [
-            '#3b82f6', // Strategy 1 (Blue)
-            '#22c55e', // Strategy 2 (Green)
-            gradientRed, // Strategy 3 (Red gradient)
-            gradientLightRed // Strategy 4 (Light red gradient)
+            gradientRed,   // Linear gradient for Strategy 1 
+            gradientBlue,  // Linear gradient for Strategy 2
+            '#A1E3CB',     // Strategy 3 
+            '#A8C5DA'      // Strategy 4 
           ];
         },
         borderWidth: 0,
@@ -62,12 +65,14 @@ const createChart = () => {
               if (data.labels.length && data.datasets.length) {
                 return data.labels.map((label, i) => {
                   let fillStyle;
-                  if (i === 2) {
-                    fillStyle = '#ef4444'; // Red for Strategy 3
+                  if (i === 0) {
+                    fillStyle = '#FF0000'; // Red for Strategy 1
+                  } else if (i === 1) {
+                    fillStyle = '#5D5FEF'; // Blue for Strategy 2
+                  } else if (i === 2) {
+                    fillStyle = '#A1E3CB'; // Green for Strategy 3
                   } else if (i === 3) {
-                    fillStyle = '#FF0000'; // Light red for Strategy 4
-                  } else {
-                    fillStyle = data.datasets[0].backgroundColor[i];
+                    fillStyle = '#A8C5DA'; // Light blue for Strategy 4
                   }
                   return {
                     text: `${label} ${data.datasets[0].data[i]}%`,
