@@ -1,10 +1,13 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar" :class="{ 'sidebar-mobile': isMobileMenuOpen }">
     <div class="logo text-black font-bold">
       <img src=" " alt="" />
       <span>Logo Here </span>
     </div>
-    <nav>
+    <button @click="toggleMobileMenu" class="mobile-menu-toggle md:hidden">
+      <i class="icon-menu"></i>
+    </button>
+    <nav :class="{ 'hidden': !isMobileMenuOpen, 'md:block': true }">
       <div class="bg-[#5847f7] transition-all duration-300 rounded-lg text-white">
         <router-link to="/" class="nav-item active cursor-pointer">
           <i class="icon-home"></i>
@@ -55,6 +58,11 @@
 import { ref } from 'vue'
 
 const showUserMenu = ref(false)
+const isMobileMenuOpen = ref(false)
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
 
 const refreshData = () => {
   // Implement refresh logic
@@ -73,6 +81,12 @@ const logout = () => {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
 }
 
 .logo {
@@ -118,5 +132,31 @@ const logout = () => {
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar-mobile {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: -40px;
+    background-color: #5847f7;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+  }
 }
 </style>
