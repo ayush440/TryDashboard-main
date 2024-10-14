@@ -1,29 +1,55 @@
 import { defineStore } from 'pinia'
 
-export const usePositionsStore = defineStore('positions', {
+export const usePositionStore = defineStore('position', {
   state: () => ({
     positions: [
-      { name: 'Super Hero Strategy', value: '17', action: 'Buy', time: '02:32AM' },
-      { name: 'Super Hero Strategy', value: '17', action: 'Buy', time: '02:32AM' },
-      { name: 'Super Hero Strategy', value: '17', action: 'Buy', time: '02:32AM' },
-      { name: 'Broker Angel-A423683', buyPrice: '₹543.56', sellPrice: '₹643.56', action: 'Square off' },
-      { name: 'Super Hero Strategy', value: '17', action: 'Buy', time: '02:32AM' },
+      {
+        id: 1,
+        strategy: 'DOMAIN TREND(NIFTY)',
+        broker: 'Angel (A537412)',
+        script: 'NIFTY15FEB2420000PE(NFO)',
+        product: 'INTRADAY',
+        side: 'SELL',
+        quantity: 500,
+        buyPrice: '09:13:54@ 0',
+        sellPrice: '09:13:54@ 0',
+        status: 'CLOSED',
+        pnl: 0
+      },
+      {
+        id: 2,
+        strategy: 'DOMAIN PRICE ACTION(BANKNIFTY)',
+        broker: 'Angel (A537412)',
+        script: 'NIFTY15FEB2422000CE(NFO)',
+        product: 'INTRADAY',
+        side: 'BUY',
+        quantity: 500,
+        buyPrice: '09:13:54@ 0',
+        sellPrice: '09:13:54@ 7',
+        status: 'CLOSED',
+        pnl: 0
+      },
+      {
+        id: 3,
+        strategy: 'DOMAIN TREND(NIFTY)',
+        broker: 'Angel (A537412)',
+        script: 'NIFTY15FEB2420000PE(NFO)',
+        product: 'INTRADAY',
+        side: 'SELL',
+        quantity: 551,
+        buyPrice: '_',
+        sellPrice: '09:13:54@ 5',
+        status: 'OPEN',
+        pnl: 1653
+      },
+      // Add the remaining positions here...
     ]
   }),
   actions: {
     async fetchPositions() {
-      // In a real application, you would fetch data from an API here
-      // For now, we'll just use the initial state
-      // this.positions = await fetch('/api/positions').then(res => res.json())
-    },
-    addPosition(position) {
-      this.positions.push(position)
-    },
-    updatePosition(index, updatedPosition) {
-      this.positions[index] = { ...this.positions[index], ...updatedPosition }
-    },
-    deletePosition(index) {
-      this.positions.splice(index, 1)
+      // In a real application, you would fetch the positions from an API
+      // For now, we'll just use the hardcoded data
+      // this.positions = await api.getPositions()
     }
   }
 })

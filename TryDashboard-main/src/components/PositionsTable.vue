@@ -51,9 +51,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { ChevronRight, ChevronUp } from 'lucide-vue-next'
-import { usePositionsStore } from '../stores/positions'
+import { usePositionStore } from '../stores/positions.js'
 
-const positionsStore = usePositionsStore()
+const positionsStore = usePositionStore()
 const expandedRows = ref({})
 
 const toggleDetails = (index) => {
